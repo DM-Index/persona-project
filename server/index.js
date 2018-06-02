@@ -1,7 +1,7 @@
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
-
+// App server binding.
 const app = express();
 
 app.use(json());
