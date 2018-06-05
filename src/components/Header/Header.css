@@ -1,0 +1,7 @@
+.App-Header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  padding: 20px;
+}
