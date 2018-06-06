@@ -8,5 +8,8 @@ import Products from "./components/Products/Products";
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/products" component={Products} />
+    <Route path="*" render={() => <div>FourOhFour</div>} />
   </Switch>
 );

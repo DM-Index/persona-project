@@ -16,15 +16,7 @@ class Header extends Component {
         <Link to="/products">
           <p>Products</p>
         </Link>
-        <Link to="/cart">
-          <p>cart</p>
-        </Link>
-        <Link to="/about">
-          <p>About</p>
-        </Link>
-        <Link to="/contact">
-          <p>Contact</p>
-        </Link>
+        <a href={process.env.REACT_APP_LOGOUT}>Logout</a>
       </div>
     );
   }

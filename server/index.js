@@ -7,18 +7,25 @@ const session = require("express-session");
 const passport = require("passport");
 
 // Controllers
-
+const { CONNECTION_STRING, SESSION_SECRET, PORT } = process.env;
+// AUTH
+const {
+  getUser,
+  strat,
+  logout,
+  checkForSession,
+  handleAuth
+} = require(`${__dirname}/controllers/authCtrl`);
 // Middlewares
-const { checkForSession } = require(`${__dirname}/middlewares/checkForSession`);
 // App server binding.
 const app = express();
 
 // const { CONNECTION_STRING } = process.env;
 // MASSIVE LETS US QUERY OUR DB WITH NODE INSTEAD OF MAPPING DB TO OBJECTS WE CAN WORK DIRECTLY WITH TABLES AND FUNCTIONS
 // This is throwing an error.
-massive(process.env.CONNECTION_STRING)
-  .then(db => {
-    app.set("dbInstance", db);
+massive(CONNECTION_STRING)
+  .then(dbInstance => {
+    app.set("db", dbInstance);
   })
   .catch(err => {
     console.log(err);
@@ -28,7 +35,7 @@ app.use(cors());
 app.use(json());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -37,10 +44,45 @@ app.use(
   })
 );
 app.use(checkForSession);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(strat);
 
-// port declaration
-// listener post
-const port = process.env.PORT || 3500;
+passport.serializeUser((user, done) => {
+  const db = app.get("db");
+  db.users
+    .getUserByAuthId([user.id])
+    .then(response => {
+      if (!response[0]) {
+        db.users
+          .addUserByAuthId([user.displayName, user.id])
+          .then(res => done(null, res[0]))
+          .catch(console.log);
+      } else return done(null, response[0]);
+    })
+    .catch(console.log);
+});
+passport.deserializeUser((user, done) => done(null, user));
+// app.get("/login", handleAuth);
+app.get(
+  "/login",
+  passport.authenticate("auth0", {
+    successRedirect: "http://localhost:3000/#/",
+    failureRedirect: "/login"
+  })
+);
+app.get("/api/me", getUser);
+app.get("/logout", logout);
+
+const port = PORT || 3001;
 app.listen(port, () => {
   console.log(`${port} Listening`);
 });
+
+// app.get(
+//   "/login",
+//   passport.authenticate("auth0", {
+//     successRedirect: "http://localhost:3000/#/",
+//     failureRedirect: "/login"
+//   })
+// );
