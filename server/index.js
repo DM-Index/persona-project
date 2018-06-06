@@ -19,10 +19,7 @@ const {
 // Middlewares
 // App server binding.
 const app = express();
-
-// const { CONNECTION_STRING } = process.env;
 // MASSIVE LETS US QUERY OUR DB WITH NODE INSTEAD OF MAPPING DB TO OBJECTS WE CAN WORK DIRECTLY WITH TABLES AND FUNCTIONS
-// This is throwing an error.
 massive(CONNECTION_STRING)
   .then(dbInstance => {
     app.set("db", dbInstance);
@@ -63,6 +60,7 @@ passport.serializeUser((user, done) => {
     .catch(console.log);
 });
 passport.deserializeUser((user, done) => done(null, user));
+// I want to turn this into a callback function but dont know how at this point
 // app.get("/login", handleAuth);
 app.get(
   "/login",
