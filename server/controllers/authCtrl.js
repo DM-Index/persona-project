@@ -1,8 +1,8 @@
 const Auth0Strategy = require("passport-auth0");
 const passport = require("passport");
-
+// Destructure Env Variables
 const { CLIENT_ID, CLIENT_SECRET, DOMAIN } = process.env;
-
+// Pseudo class that allows new connections to inherit 'class' properties
 const strat = new Auth0Strategy(
   {
     clientID: CLIENT_ID,
@@ -15,23 +15,19 @@ const strat = new Auth0Strategy(
     done(null, profile);
   }
 );
-
-const checkForSession = (req, res, next) => {
-  if (!req.session.cart) req.session.cart = [];
-  next();
-};
-
+// Get User Method
 const getUser = (req, res) => {
   if (req.user) res.status(200).json(req.user);
   else res.status(403).json({ message: "Not Logged In" });
 };
-
+// Logout Method
 const logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect("http://localhost:3000/#/");
   });
 };
-
+// Auth Direct Method
+// Not currently working
 const handleAuth = (req, res) => {
   passport.authenticate("auth0", {
     successRedirect: "http://localhost:3000/#/",
@@ -43,6 +39,5 @@ module.exports = {
   strat,
   getUser,
   logout,
-  checkForSession,
   handleAuth
 };

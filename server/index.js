@@ -6,18 +6,18 @@ const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
 
-// Controllers
+// Environment Variable Destructuring
 const { CONNECTION_STRING, SESSION_SECRET, PORT } = process.env;
-// AUTH
+// Auth Controller
 const {
   getUser,
   strat,
   logout,
-  checkForSession,
   handleAuth
 } = require(`${__dirname}/controllers/authCtrl`);
-// Middlewares
-// App server binding.
+// Session Middleware
+const { checkForSession } = require(`${__dirname}/middlewares/checkForSession`);
+// Server Declaration
 const app = express();
 // MASSIVE LETS US QUERY OUR DB WITH NODE INSTEAD OF MAPPING DB TO OBJECTS WE CAN WORK DIRECTLY WITH TABLES AND FUNCTIONS
 massive(CONNECTION_STRING)
@@ -76,11 +76,3 @@ const port = PORT || 3001;
 app.listen(port, () => {
   console.log(`${port} Listening`);
 });
-
-// app.get(
-//   "/login",
-//   passport.authenticate("auth0", {
-//     successRedirect: "http://localhost:3000/#/",
-//     failureRedirect: "/login"
-//   })
-// );
