@@ -40,11 +40,11 @@ app.use(
     }
   })
 );
-app.use(checkForSession);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(checkForSession);
 passport.use(strat);
-
+// Answer this. What does serializeUser do?
 passport.serializeUser((user, done) => {
   const db = app.get("db");
   db.users
@@ -59,18 +59,24 @@ passport.serializeUser((user, done) => {
     })
     .catch(console.log);
 });
+// Answer this What does deserializeUser do?
 passport.deserializeUser((user, done) => done(null, user));
 // I want to turn this into a callback function but dont know how at this point
 // app.get("/login", handleAuth);
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/#/",
+    // does this need to be my live server?
+    successRedirect: "http://localhost:3000/",
     failureRedirect: "/login"
   })
 );
 app.get("/api/me", getUser);
-app.get("/logout", logout);
+
+// Test api
+app.get("/api/test", (req, res) => {
+  res.json("Test Successful");
+});
 
 const port = PORT || 3001;
 app.listen(port, () => {

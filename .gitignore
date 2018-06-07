@@ -3,3 +3,5 @@ node_modules
 yarn.lock
 vs.code
 yarn-error.log
+package-lock.json
+README_PRIVATE.md
