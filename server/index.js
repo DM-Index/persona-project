@@ -5,7 +5,6 @@ const cors = require("cors");
 const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
-
 // Environment Variable Destructuring
 const { CONNECTION_STRING, SESSION_SECRET, PORT } = process.env;
 // Auth Controller
@@ -61,13 +60,11 @@ passport.serializeUser((user, done) => {
 });
 // Answer this What does deserializeUser do?
 passport.deserializeUser((user, done) => done(null, user));
-// I want to turn this into a callback function but dont know how at this point
-// app.get("/login", handleAuth);
 app.get(
   "/login",
   passport.authenticate("auth0", {
     // does this need to be my live server?
-    successRedirect: "http://localhost:3000/",
+    successRedirect: "localhost:3001/",
     failureRedirect: "/login"
   })
 );
@@ -82,3 +79,4 @@ const port = PORT || 3001;
 app.listen(port, () => {
   console.log(`${port} Listening`);
 });
+// tern state

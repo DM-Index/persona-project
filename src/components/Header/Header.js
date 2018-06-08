@@ -2,18 +2,19 @@ import React from "react";
 // Router dependencies
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { getUser } from "../../reducers/userReducer";
 // Styling
 import "./Header.css";
 
 class Header extends React.Component {
+  componentDidMount() {
+    this.props.getUser();
+  }
   render() {
     return (
       <div className="App-Header">
         <Link to="/">
           <p>Home</p>
-        </Link>
-        <Link to="/login">
-          <p>Login</p>
         </Link>
         <Link to="/products">
           <p>Products</p>
@@ -21,13 +22,22 @@ class Header extends React.Component {
         <Link to="/admin">
           <p>Admin</p>
         </Link>
-        <a href={process.env.REACT_APP_LOGOUT}>Logout</a>
-        <p>Cart Placeholder</p>
+        <div>
+          {!this.props.isAuthed ? (
+            <a href={process.env.REACT_APP_LOGIN}>Login</a>
+          ) : (
+            <a href={process.env.REACT_APP_LOGOUT}>Log out</a>
+          )}
+        </div>
+        <p> Cart Placeholder </p>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = ({ user }) => ({ ...user });
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  { getUser }
+)(Header);

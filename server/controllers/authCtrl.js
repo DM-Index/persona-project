@@ -1,11 +1,11 @@
+require("dotenv").config();
 const Auth0Strategy = require("passport-auth0");
 const passport = require("passport");
 // pulling properties from environmental object
 const { CLIENT_ID, CLIENT_SECRET, DOMAIN, CALLBACK, SCOPE } = process.env;
-// Pseudo class that allows new connections to inherit 'class' properties
+// Look to change scope, currently using OpenId but it's not about half as secure as standard
 const strat = new Auth0Strategy(
   {
-    // Look to change scope, currently using OpenId but it's not about half as secure as standard
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
     domain: DOMAIN,
@@ -34,7 +34,7 @@ const logout = (req, res) => {
 const handleAuth = (req, res) => {
   passport.authenticate("auth0", {
     successRedirect: "http://localhost:3000/",
-    failureRedirect: CALLBACK
+    failureRedirect: "/login"
   });
 };
 
