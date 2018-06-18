@@ -13,9 +13,7 @@ export function getUser() {
     payload: axios.get("api/me")
   };
 }
-
 // Reducer
-
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case `${GET_USER}_FULFILLED`:

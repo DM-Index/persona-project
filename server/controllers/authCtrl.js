@@ -19,7 +19,7 @@ const getUser = (req, res) => {
   if (req.user) {
     return res.status(200).json(req.user);
   } else {
-    res.status(401).send("Not Logged In");
+    res.status(401).json("Not Logged In");
   }
 };
 // Logout Method

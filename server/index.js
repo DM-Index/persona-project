@@ -28,7 +28,9 @@ app.use(passport.session());
 // Massive
 massive(process.env.CONNECTION_STRING)
   .then(dbInstance => {
+    // attaches dbInstance t
     app.set("db", dbInstance);
+    // the returned db obj constitutes an API for my schema with tables views and scripts attached.
   })
   .catch(err => {
     console.log(err);
