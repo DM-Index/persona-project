@@ -1,11 +1,19 @@
-// redundant
-const checkForSession = (req, res, next) => {
-  if (!req.session.cart) {
-    req.session.cart = [];
+module.export = {
+  checkForSession: (req, res, next) => {
+    if (!req.session.cart) {
+      req.session.cart = [];
+    }
+    next();
   }
-  next();
 };
 
-module.exports = {
-  checkForSession
-};
+// const checkForSession = (req, res, next) => {
+//   if (!req.session.cart) {
+//     req.session.cart = [];
+//   }
+//   next();
+// };
+
+// module.export = {
+//   checkForSession
+// };

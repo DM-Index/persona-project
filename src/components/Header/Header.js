@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUser } from "../../reducers/userReducer";
+
+import Login from "../Login/Login";
 // Styling
 import "./Header.css";
 
@@ -24,8 +26,9 @@ class Header extends React.Component {
         </Link>
         <div>
           {!this.props.isAuthed ? (
-            <a href={process.env.REACT_APP_LOGIN}>Login</a>
+            <Login />
           ) : (
+            // <Logout />
             <a href={process.env.REACT_APP_LOGOUT}>Log out</a>
           )}
         </div>

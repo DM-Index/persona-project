@@ -5,33 +5,17 @@ const cors = require("cors");
 const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
-// Environment Variable Destructuring
-const { CONNECTION_STRING, SESSION_SECRET, PORT } = process.env;
-// Auth Controller
-const {
-  getUser,
-  strat,
-  logout,
-  handleAuth
-} = require(`${__dirname}/controllers/authCtrl`);
-// Session Middleware
-const { checkForSession } = require(`${__dirname}/middlewares/checkForSession`);
-// Server Declaration
+// Hello world!
 const app = express();
-// MASSIVE LETS US QUERY OUR DB WITH NODE INSTEAD OF MAPPING DB TO OBJECTS WE CAN WORK DIRECTLY WITH TABLES AND FUNCTIONS
-massive(CONNECTION_STRING)
-  .then(dbInstance => {
-    app.set("db", dbInstance);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-// middleware binding
 app.use(cors());
 app.use(json());
+// Auth Controller
+const { getUser, strat, logout } = require(`${__dirname}/controllers/authCtrl`);
+// Session MW & Init
+const checkForSession = require("./middlewares/checkForSession");
 app.use(
   session({
-    secret: SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -41,9 +25,16 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(checkForSession);
+// Massive
+massive(process.env.CONNECTION_STRING)
+  .then(dbInstance => {
+    app.set("db", dbInstance);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+// app.use(checkForSession);
 passport.use(strat);
-// Answer this. What does serializeUser do?
 passport.serializeUser((user, done) => {
   const db = app.get("db");
   db.users
@@ -58,25 +49,23 @@ passport.serializeUser((user, done) => {
     })
     .catch(console.log);
 });
-// Answer this What does deserializeUser do?
 passport.deserializeUser((user, done) => done(null, user));
+// Auth API
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    // does this need to be my live server?
-    successRedirect: "localhost:3001/",
+    successRedirect: "http://localhost:3000/#/",
     failureRedirect: "/login"
   })
 );
+app.get("/logout", logout);
 app.get("/api/me", getUser);
-
 // Test api
 app.get("/api/test", (req, res) => {
   res.json("Test Successful");
 });
-
-const port = PORT || 3001;
+// Port and listener
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`${port} Listening`);
 });
-// tern state
