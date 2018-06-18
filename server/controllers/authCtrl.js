@@ -1,8 +1,6 @@
 require("dotenv").config();
-
 const Auth0Strategy = require("passport-auth0");
-// const passport = require("passport");
-// Look to change scope, currently using OpenId but it's not about half as secure as standard
+
 const strat = new Auth0Strategy(
   {
     clientID: process.env.CLIENT_ID,
@@ -24,24 +22,15 @@ const getUser = (req, res) => {
     res.status(401).send("Not Logged In");
   }
 };
-
 // Logout Method
 const logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect("http://localhost:3000/#/");
   });
 };
-// Login
-// const login = (req, res) => {
-//   passport.authenticate("auth0", {
-//     successRedirect: "http://localhost:3000/",
-//     failureRedirect: "/login"
-//   });
-// };
 
 module.exports = {
   strat,
   getUser,
   logout
-  // login
 };

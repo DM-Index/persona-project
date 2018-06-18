@@ -1,5 +1,10 @@
 {
-  "cSpell.words": ["authed", "signout"],
+  "cSpell.words": [
+    "authed",
+    "pet",
+    "signout",
+    "store"
+  ],
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "terminal.integrated.shellArgs.windows": ["/k %CMDER_ROOT%\\vendor\\init.bat"]
 }

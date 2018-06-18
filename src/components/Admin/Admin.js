@@ -13,7 +13,10 @@ class Admin extends React.Component {
         {!this.props.isAuthed ? (
           <p>Not authorized to see this display </p>
         ) : (
-          <p>{JSON.stringify(this.props.user)}</p>
+          <React.Fragment>
+            <p> Welcome</p>
+            <p>{JSON.stringify(this.props.user.name)}!</p>
+          </React.Fragment>
         )}
       </div>
     );
