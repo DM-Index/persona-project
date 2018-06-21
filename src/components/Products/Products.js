@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-export default class Product extends React.Component {
+export default class Products extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -16,6 +16,23 @@ export default class Product extends React.Component {
   }
 
   render() {
-    return <div> Product Placeholder v2 </div>;
+    const display = this.state.products.map((product, id) => {
+      console.log(product.type);
+      return (
+        <div className="product-wrapper">
+          {product.id}
+          {product.type}
+          {product.price}
+        </div>
+      );
+    });
+    return (
+      <div key={display.id}>
+        <h1> Category: {display} </h1>
+        <br />
+        <p> Price: {display} </p>
+        <br />
+      </div>
+    );
   }
 }

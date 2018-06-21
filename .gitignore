@@ -1,7 +1,8 @@
+vs.code
 node_modules
 .env
 yarn.lock
-vs.code
 yarn-error.log
 package-lock.json
 README_PRIVATE.md
+README_SQL.md

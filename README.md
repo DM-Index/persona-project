@@ -15,19 +15,6 @@ https://reacttraining.com/react-router/web/example/no-match
 
 https://code.tutsplus.com/tutorials/working-with-tables-in-react-part-one--cms-29682
 
-# Auth0 JSON
+# REQ / RES STRUCTURE
 
-Profile {
-displayName: 'Nathan Hatzfeld',
-id: 'github|31836136',
-user_id: 'github|31836136',
-name: { familyName: undefined, givenName: undefined },
-picture: 'https://avatars0.githubusercontent.com/u/31836136?v=4',
-nickname: 'nhatzfeld',
-\_json:
-{ sub: 'github|31836136',
-nickname: 'nhatzfeld',
-name: 'Nathan Hatzfeld',
-picture: 'https://avatars0.githubusercontent.com/u/31836136?v=4',
-updated_at: '2018-06-07T20:54:35.527Z' },
-\_raw: '{"sub":"github|31836136","nickname":"nhatzfeld","name":"Nathan Hatzfeld","picture":"https://avatars0.githubusercontent.com/u/31836136?v=4","updated_at":"2018-06-07T20:54:35.527Z"}' } 'profile'
+http://www.murvinlai.com/req-and-res-in-nodejs.html
