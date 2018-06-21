@@ -11,7 +11,7 @@ class Admin extends React.Component {
     return (
       <div>
         {!this.props.isAuthed ? (
-          <p>Not authorized to see this display </p>
+          <p> Not authorized to see this display </p>
         ) : (
           <React.Fragment>
             <p> Welcome</p>

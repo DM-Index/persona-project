@@ -11,6 +11,8 @@ app.use(cors());
 app.use(json());
 // Auth Controller
 const { getUser, strat, logout } = require(`${__dirname}/controllers/authCtrl`);
+// Product Controller
+const { getAllProducts } = require(`${__dirname}/controllers/productCtrl`);
 // Session MW & Init
 const checkForSession = require("./middlewares/checkForSession");
 app.use(
@@ -60,12 +62,15 @@ app.get(
     failureRedirect: "/login"
   })
 );
+// Auth api
 app.get("/logout", logout);
 app.get("/api/me", getUser);
 // Test api
 app.get("/api/test", (req, res) => {
   res.json("Test Successful");
 });
+// Product Api
+app.get("/products", getAllProducts);
 // Port and listener
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
