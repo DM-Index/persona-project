@@ -9,6 +9,7 @@ export default class Products extends React.Component {
       cart: []
     };
   }
+  
   componentDidMount() {
     axios.get("/products").then(results => {
       console.log("axios firing", results.data);

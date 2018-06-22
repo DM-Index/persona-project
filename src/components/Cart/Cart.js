@@ -8,6 +8,8 @@ export default class Cart extends React.Component {
       cart: []
     };
   }
+  // we will use routes to fetch data dont worry about props or state in this component
+
   componentDidMount() {
     axios.get("/cart").then(res => {
       this.setState({ cart: res.cart });
