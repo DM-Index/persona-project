@@ -5,7 +5,8 @@ export default class Products extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: []
+      products: [],
+      cart: []
     };
   }
   componentDidMount() {
@@ -16,33 +17,24 @@ export default class Products extends React.Component {
   }
 
   render() {
-    const Display = this.state.products.map((Display, id) => {
-      // console.log(product.type);
-      // return (
-      //   <span className="product-wrapper">
-      //     <br />
-      //     {product.type},
-      //     <br />
-      //     {product.price},
-      //   </span>
-      // );
-      <Display
-        key={Display.id}
-        Category={Display.type}
-        price={Display.price}
-      />;
+    const display = this.state.products.map((product, id) => {
+      console.log(product.type);
+      return (
+        <div className="product-wrapper">
+          {product.id}
+          {product.type}
+          {product.price}
+        </div>
+      );
     });
-    //     return (
-    //       <div key={display.id}>
-    //         <h1> Category: {display} </h1>
-    //         <br />
-    //         <p> Price: {display} </p>
-    //         <br />
-    //       </div>
-    //     );
-    //   }
-    // }
-
-    return <div> {Display} </div>;
+    return (
+      <div key={display.id}>
+        <h1> Category: {display} </h1>
+        <br />
+        <p> Price: {display} </p>
+        <br />
+        <button OnClick={this.state.cart} />
+      </div>
+    );
   }
 }

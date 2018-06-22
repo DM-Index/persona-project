@@ -3,13 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUser } from "../../reducers/userReducer";
+
 // Styling
 import "./Header.css";
 
 class Header extends React.Component {
-  componentDidMount() {
-    this.props.getUser();
-  }
   render() {
     return (
       <div className="App-Header">
@@ -19,9 +17,6 @@ class Header extends React.Component {
         <Link to="/products">
           <p>Products</p>
         </Link>
-        <Link to="/admin">
-          <p>Admin</p>
-        </Link>
         <div>
           {!this.props.isAuthed ? (
             <a href={process.env.REACT_APP_LOGIN}>Log In</a>
@@ -29,7 +24,9 @@ class Header extends React.Component {
             <a href={process.env.REACT_APP_LOGOUT}>Log out</a>
           )}
         </div>
-        <p> Cart Placeholder </p>
+        <Link to="/cart">
+          <p>Cart</p>
+        </Link>
       </div>
     );
   }

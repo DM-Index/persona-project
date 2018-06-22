@@ -13,6 +13,13 @@ app.use(json());
 const { getUser, strat, logout } = require(`${__dirname}/controllers/authCtrl`);
 // Product Controller
 const { getAllProducts } = require(`${__dirname}/controllers/productCtrl`);
+// Cart Controller
+const {
+  getCart,
+  addToCart,
+  editCart,
+  deleteFromCart
+} = require(`${__dirname}/controllers/cartCtrl`);
 // Session MW & Init
 const checkForSession = require("./middlewares/checkForSession");
 app.use(
@@ -66,6 +73,11 @@ app.get("/logout", logout);
 app.get("/api/me", getUser);
 // Product Api
 app.get("/products", getAllProducts);
+// Cart Api
+// app.get("/cart", getCart);
+// app.post("/cart", addToCart);
+// app.put("/cart", editCart);
+// app.delete("/cart", deleteFromCart);
 // Port and Listener
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
