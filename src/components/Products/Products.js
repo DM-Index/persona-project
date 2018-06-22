@@ -16,7 +16,11 @@ export default class Products extends React.Component {
     });
   }
 
-  addHandler(val) {}
+  addItem() {
+    axios.post("/cart").then(res => {
+      this.setState({ cart: res.cart });
+    });
+  }
 
   render() {
     const display = this.state.products.map((product, id) => {
@@ -26,7 +30,7 @@ export default class Products extends React.Component {
           {product.id}
           {product.type}
           {product.price}
-          <button>Add to Cart</button>
+          <button OnClick={addItem()}>Add to Cart</button>
         </div>
       );
     });
