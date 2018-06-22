@@ -17,7 +17,21 @@ export default class Products extends React.Component {
   }
   // body params query to send data
   addItem(val) {
-    console.log("button clicked", val)
+    console.log("button clicked", val);
+    axios.post("/cart/addItem", { val }).then(res => {
+      this.setState({ cart: res.cart });
+    });
+  }
+
+  editItem(val) {
+    console.log("button clicked", val);
+    axios.put("/cart/editItem", { val }).then(res => {
+      this.setState({ cart: res.cart });
+    });
+  }
+
+  deleteItem(val) {
+    console.log("button clicked", val);
     axios.post("/cart/addItem", { val }).then(res => {
       this.setState({ cart: res.cart });
     });
@@ -25,13 +39,20 @@ export default class Products extends React.Component {
 
   render() {
     const display = this.state.products.map((product, i) => {
-      console.log(product.type);
       return (
-        <div ClassName="product-wrapper" key={i}>
+        <div className="product-wrapper" key={i}>
           {product.id}
+          <br />
+          <br />
           {product.type}
+          <br />
+          <br />
           {product.price}
+          <br />
+          <br />
           <button onClick={() => this.addItem(product.id)}>Add to Cart</button>
+          <br />
+          <br />
         </div>
       );
     });

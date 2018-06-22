@@ -7,7 +7,6 @@ let id = 1;
 const addToCart = (req, res) => {
   console.log(req.body.val);
 
-  
   res.send("success");
 };
 // map req.session.cart over to the req.body
