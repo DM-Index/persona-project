@@ -15,22 +15,23 @@ export default class Products extends React.Component {
       this.setState({ products: results.data });
     });
   }
-
-  addItem() {
-    axios.post("/cart").then(res => {
+  // body params query to send data
+  addItem(val) {
+    console.log("button clicked", val)
+    axios.post("/cart/addItem", { val }).then(res => {
       this.setState({ cart: res.cart });
     });
   }
 
   render() {
-    const display = this.state.products.map((product, id) => {
+    const display = this.state.products.map((product, i) => {
       console.log(product.type);
       return (
-        <div ClassName="product-wrapper">
+        <div ClassName="product-wrapper" key={i}>
           {product.id}
           {product.type}
           {product.price}
-          <button OnClick={addItem()}>Add to Cart</button>
+          <button onClick={() => this.addItem(product.id)}>Add to Cart</button>
         </div>
       );
     });

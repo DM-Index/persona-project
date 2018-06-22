@@ -15,10 +15,10 @@ const { getUser, strat, logout } = require(`${__dirname}/controllers/authCtrl`);
 const { getAllProducts } = require(`${__dirname}/controllers/productCtrl`);
 // Cart Controller
 const {
-  getCart,
-  addToCart,
-  editCart,
-  deleteFromCart
+  // getCart,
+  addToCart
+  // editCart,
+  // deleteFromCart
 } = require(`${__dirname}/controllers/cartCtrl`);
 // Session MW & Init
 const checkForSession = require("./middlewares/checkForSession");
@@ -65,7 +65,7 @@ app.get(
   "/login",
   passport.authenticate("auth0", {
     successRedirect: "http://localhost:3000/#/",
-    failureRedirect: "/login"
+    failureRedirect: "/#/login"
   })
 );
 // Auth api
@@ -75,7 +75,7 @@ app.get("/api/me", getUser);
 app.get("/products", getAllProducts);
 // Cart Api
 // app.get("/cart", getCart);
-// app.post("/cart", addToCart);
+app.post("/cart/addItem", addToCart);
 // app.put("/cart", editCart);
 // app.delete("/cart", deleteFromCart);
 // Port and Listener
