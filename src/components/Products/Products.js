@@ -16,25 +16,20 @@ export default class Products extends React.Component {
     });
   }
 
+  addHandler(val) {}
+
   render() {
     const display = this.state.products.map((product, id) => {
       console.log(product.type);
       return (
-        <div className="product-wrapper">
+        <div ClassName="product-wrapper">
           {product.id}
           {product.type}
           {product.price}
+          <button>Add to Cart</button>
         </div>
       );
     });
-    return (
-      <div key={display.id}>
-        <h1> Category: {display} </h1>
-        <br />
-        <p> Price: {display} </p>
-        <br />
-        <button OnClick={this.state.cart} />
-      </div>
-    );
+    return <div key={display.id}>{display}</div>;
   }
 }
