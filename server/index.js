@@ -15,25 +15,27 @@ const { getUser, strat, logout } = require(`${__dirname}/controllers/authCtrl`);
 const { getAllProducts } = require(`${__dirname}/controllers/productCtrl`);
 // Cart Controller
 const {
-  // getCart,
-  addToCart
+  getCart,
+  addToCart,
+  deleteFromCart
   // editCart,
-  // deleteFromCart
 } = require(`${__dirname}/controllers/cartCtrl`);
+
 // Session MW & Init
-const checkForSession = require("./middlewares/checkForSession");
+const { checkForSession } = require(`${__dirname}/middlewares/checkForSession`);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 10000000 * 64 * 38 * 24
+      maxAge: 10000000 * 64 * 38 * 24 * 124
     }
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Massive
 massive(process.env.CONNECTION_STRING)
   .then(dbInstance => {
@@ -43,7 +45,8 @@ massive(process.env.CONNECTION_STRING)
   .catch(err => {
     console.log(err);
   });
-// app.use(checkForSession);
+
+app.use(checkForSession);
 passport.use(strat);
 passport.serializeUser((user, done) => {
   const db = app.get("db");
@@ -60,6 +63,7 @@ passport.serializeUser((user, done) => {
     .catch(console.log);
 });
 passport.deserializeUser((user, done) => done(null, user));
+
 // Auth API
 app.get(
   "/login",
@@ -68,16 +72,16 @@ app.get(
     failureRedirect: "/#/login"
   })
 );
+
 // Auth api
 app.get("/logout", logout);
 app.get("/api/me", getUser);
 // Product Api
 app.get("/products", getAllProducts);
 // Cart Api
-// app.get("/cart", getCart);
+app.get("/cart", getCart);
 app.post("/cart/addItem", addToCart);
-// app.put("/cart", editCart);
-// app.delete("/cart", deleteFromCart);
+app.delete("/cart/deleteItem", deleteFromCart);
 // Port and Listener
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

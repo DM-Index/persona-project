@@ -1,23 +1,40 @@
 let id = 1;
 
-// const getCart = (req, res) => {
-//   res.status(200).json(req.session.cart);
-// };
+const getCart = (req, res) => {
+  console.log("Get Cart Firing", req.session.body.cart);
+  req.user
+    ? res.status(200).json(req.session.body.cart)
+    : res.status(401).json("Please sign in");
+};
 
 const addToCart = (req, res) => {
-  console.log(req.body.val);
+  const inCart = req.session.cart.find(item => item.type === req.body.type);
+  inCart
+    ? inCart.quantity++
+    : (cartItem = {
+        ...req.body,
+        id,
+        quantity: 1
+      });
+  req.session.body.cart.push(cartItem);
+  id++;
 
-  res.send("success");
+  console.log(req.session.body.val);
+  req.session.body.val
+    ? res.status(200).json(req.session.body.val)
+    : res.status(401).json("Please Sign in");
 };
-// map req.session.cart over to the req.body
-// const editCart = (req, res) => {};
 
-// const deleteCart = (req, res) => {};
-// filter req.session.cart and parseint the params
+const deleteFromCart = (req, res) => {
+  const filtered = req.session.cart.filter(
+    item => item.id !== parseInt(req.params.id)
+  );
+  req.session.cart = filtered;
+  res.status(200).json(req.session.cart);
+};
+
 module.exports = {
-  // getCart,
-  addToCart
-  // editCart,
-  // deleteFromCart
+  getCart,
+  addToCart,
+  deleteFromCart
 };
-//

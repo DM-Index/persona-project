@@ -1,7 +1,9 @@
-module.export = {
+module.exports = {
   checkForSession: (req, res, next) => {
-    if (!req.session.cart) {
-      req.session.cart = [];
+    if (!req.session.user) {
+      req.session.user = {
+        cart: []
+      };
     }
     next();
   }
