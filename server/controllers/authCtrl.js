@@ -15,11 +15,10 @@ const strat = new Auth0Strategy(
 );
 // Get User
 const getUser = (req, res) => {
-  console.log("get user firing", req.user);
   if (req.user) {
     return res.status(200).json(req.user);
   } else {
-    res.status(401).json("Not Logged In");
+    res.status(401).json("getUser Error: Auth Ctrl");
   }
 };
 // Logout Method

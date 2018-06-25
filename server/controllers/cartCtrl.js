@@ -1,9 +1,9 @@
 let id = 1;
-
+// there is no body on session
 const getCart = (req, res) => {
-  console.log("Get Cart Firing", req.session.body.cart);
+  console.log("Get Cart Firing", req.session.cart);
   req.user
-    ? res.status(200).json(req.session.body.cart)
+    ? res.status(200).json(req.session.cart)
     : res.status(401).json("Please sign in");
 };
 
@@ -16,12 +16,12 @@ const addToCart = (req, res) => {
         id,
         quantity: 1
       });
-  req.session.body.cart.push(cartItem);
+  req.session.cart.push(cartItem);
   id++;
 
-  console.log(req.session.body.val);
-  req.session.body.val
-    ? res.status(200).json(req.session.body.val)
+  console.log(req.session.cart);
+  req.session.val
+    ? res.status(200).json(req.session.cart)
     : res.status(401).json("Please Sign in");
 };
 

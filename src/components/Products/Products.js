@@ -10,22 +10,24 @@ export default class Products extends React.Component {
       products: [],
       cart: []
     };
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
     axios
       .get("/products")
       .then(results => {
-        console.log("axios firing", results.data);
         this.setState({ products: results.data });
       })
-      .catch(console.log("axios get error"));
+      .catch(console.log("/products get mount error"));
   }
+
   // body params query to send data
   addItem(val) {
     console.log("button clicked", val);
     axios
-      .post("/cart", { val })
+      .post("/cart/addItem", { val })
       .then(res => {
         this.setState({ cart: res.cart });
       })
@@ -53,12 +55,12 @@ export default class Products extends React.Component {
   }
 
   render() {
-    const display = this.state.products.map((product, i) => {
+    const display = this.state.products.map((product, id) => {
       return (
         <div className="product-wrapper">
           <div className="state-display">
             <div className="row-wrapper">
-              <div className="column-wrapper" key={i}>
+              <div className="column-wrapper" key={id}>
                 {product.id}
                 <br />
                 <br />

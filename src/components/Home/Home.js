@@ -7,7 +7,7 @@ import "./Home.css";
 
 class Home extends React.Component {
   componentDidMount() {
-    console.log(getUser);
+    // console.log(getUser);
     this.props.getUser();
   }
   render() {

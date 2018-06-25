@@ -23,10 +23,10 @@ export default class Cart extends React.Component {
 
   // set state here or bring it in from product... which design is better?
   render() {
-    const kart = this.state.cart.map(item => {
+    const kart = this.state.cart.map((item, id) => {
       return (
-        <div ClassName="kart-wrapper">
-          <h1>{item}</h1>
+        <div ClassName="kart-wrapper" key={id}>
+          <h1>{this.state.cart}</h1>
           <h2>{item}</h2>
           <h3>{item}</h3>
           <h4>{kart}</h4>
