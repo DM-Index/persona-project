@@ -20,7 +20,7 @@ export default class Products extends React.Component {
       .then(results => {
         this.setState({ products: results.data });
       })
-      .catch(console.log("/products get mount error"));
+      .catch(err => console.log(err));
   }
 
   // body params query to send data
@@ -29,9 +29,10 @@ export default class Products extends React.Component {
     axios
       .post("/cart/addItem", { val })
       .then(res => {
-        this.setState({ cart: res.cart });
+        // this.setState({ cart: res.cart });
+        console.log(res);
       })
-      .catch(console.log("add item error"));
+      .catch(err => console.log(err));
   }
 
   // editItem(val) {
@@ -51,16 +52,16 @@ export default class Products extends React.Component {
       .then(res => {
         this.setState({ cart: res.cart });
       })
-      .catch(console.log("delete item error"));
+      .catch(err => console.log(err));
   }
 
   render() {
     const display = this.state.products.map((product, id) => {
       return (
-        <div className="product-wrapper">
+        <div className="product-wrapper" key={id}>
           <div className="state-display">
             <div className="row-wrapper">
-              <div className="column-wrapper" key={id}>
+              <div className="column-wrapper">
                 {product.id}
                 <br />
                 <br />
